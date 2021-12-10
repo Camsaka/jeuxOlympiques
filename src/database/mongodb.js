@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://camilleg:1234@cluster0.gtp12.mongodb.net/jeuxOlympiques?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://abbes:rayan@cluster0.cjarb.mongodb.net/jeuxolympique?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 
