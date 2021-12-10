@@ -20,9 +20,9 @@ router.post('/sports', async (req, res) => {
     sportController.AddSport(req, res);
 });
 
-// router.put('/api/sports/:id/athletes/:name', async (req, res) => {
-//     sportController.AthletesToSport(req, res); 
-//   });
+router.put('/sports/:idSport/athletes/:idAthlete', async (req, res) => {
+    sportController.AddAthleteToSport(req, res); 
+  });
 // ... A COMPLETER ...
 
 module.exports = router;

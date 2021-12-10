@@ -5,10 +5,6 @@ const Schema = mongoose.Schema;
 
 const sportSchema = new mongoose.Schema({
     name: String,
-    firstName: String,
-    athleteslist: Array,
-    count: String,
-
     // ... A COMPLETER ...
     // Exemple :
     athletes : [{ type: Schema.Types.ObjectId, ref: 'athletes' }]

@@ -53,6 +53,17 @@ class SportController {
         });
     }
 
+    async AddAthleteToSport(req, res) {
+        
+        const idSport = req.params.idSport;
+        const idAthlete = req.params.idAthlete;
+        const athlete = await Athlete.findById(idAthlete);
+        const sports = await Sport.findById(idSport);
+        sports.athletes.push(athlete.id);
+        await sports.save();
+        res.json(sports);
+    }
+
     // async AthletesToSport(req, res) {
         
     //     const id = req.params.id;
