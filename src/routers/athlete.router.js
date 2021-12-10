@@ -16,4 +16,11 @@ router.get('/athletes/:id', async  (req, res) => {
     athleteController.getById(req,res);
 })
 
+router.get('/athletes/:idAthlete/sports', async  (req, res) => {
+    athleteController.listSports(req,res);
+})
+
+
+
+
 module.exports = router;

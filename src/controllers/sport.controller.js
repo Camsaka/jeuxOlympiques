@@ -64,23 +64,6 @@ class SportController {
         res.json(sports);
     }
 
-    // async AthletesToSport(req, res) {
-        
-    //     const id = req.params.id;
-    //     const name = req.params.name;
-    //     const sports = await Sport.findById(id);
-    //     const athletes = await Sport.findById(name);
-        
-    //     const paramSport = req.body;
-    //     const paramAthlete = req.body;
-    //     const sports = new Sport({
-    //         sports: paramAthlete,
-    //         athletes: [paramSport],
-    //     });
-    //     await sports.save();
-    //     res.redirect('/api/sports');
-    // }
-    // ... A COMPLETER ...
 }
 
 module.exports = SportController;
