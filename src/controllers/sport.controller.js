@@ -42,11 +42,11 @@ class SportController {
         const sports = await Sport.findById(id);
         let i = 0;
         var athleteslist = [];
-        for ( i = 0; i <= sports.athletes.length; i++ )
-        {
-                const athletes = await Athlete.findById(sports.athletes[i]);
-                athleteslist.push(athletes);
-        } 
+        for (var athleteId of sports.athletes){
+            const athlete = await Athlete.findById(athleteId);
+            var name = athlete.firstName + " " + athlete.lastName;
+            athleteslist.push(name);
+        }
         res.json({
             // sport: sports,
             athleteslist : athleteslist,
