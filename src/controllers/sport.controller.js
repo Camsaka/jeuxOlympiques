@@ -1,4 +1,5 @@
 const Sport = require('../models/sport.model');
+const Athlete = require('../models/athlete.model');
 
 class SportController {
     /**
@@ -39,10 +40,16 @@ class SportController {
         
         const id = req.params.id;
         const sports = await Sport.findById(id);
-        const athletes = await Athletes.find();
+        let i = 0;
+        var athleteslist = [];
+        for ( i = 0; i <= sports.athletes.length; i++ )
+        {
+                const athletes = await Athlete.findById(sports.athletes[i]);
+                athleteslist.push(athletes);
+        } 
         res.json({
-            sport: sports,
-            athletes : athletes
+            // sport: sports,
+            athleteslist : athleteslist,
         });
     }
 

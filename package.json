@@ -1,7 +1,7 @@
 {
   "name": "tp1",
   "version": "1.0.0",
-  "description": "",
+  "description": "Projet TP1 administration JO, M2 Nodejs",
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
@@ -11,10 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^6.1.0",
+    "mongoose": "^6.1.1",
     "uuid": "^8.3.2"
   },
   "engines": {
     "node": ">12"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Camsaka/jeuxOlympiques.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Camsaka/jeuxOlympiques/issues"
+  },
+  "homepage": "https://github.com/Camsaka/jeuxOlympiques#readme"
 }

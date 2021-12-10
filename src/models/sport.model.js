@@ -5,8 +5,9 @@ const Schema = mongoose.Schema;
 
 const sportSchema = new mongoose.Schema({
     name: String,
-    
-    // athletes: Array,
+    firstName: String,
+    athleteslist: Array,
+    count: String,
 
     // ... A COMPLETER ...
     // Exemple :

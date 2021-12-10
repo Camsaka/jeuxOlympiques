@@ -14,7 +14,7 @@ app.use('/api', sportRouter);
 // Connexion à la base de données
 require('./database/mongodb');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
     console.log(`Serveur lancé sur le port ${port} 🚀`);
 });
