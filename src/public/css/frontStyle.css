@@ -1,0 +1,75 @@
+.fieldset .legend{
+    /* on part de la base de 1rem = 16px */
+    font-size: 1rem;
+    margin: 0;
+}
+
+.fieldset,
+.fieldset.legend:after {
+    border-style: solid;
+    border-color: grey;
+}
+
+.fieldset .legend span,
+.fieldset .legend {
+    background-color: #fff;
+}
+
+.fieldset,
+.fieldset .legend:after,
+.fieldset .legend span,
+.fieldset-content {
+    box-sizing: border-box;
+}
+
+.fieldset {
+    /* 0.063rem = 1px sur la base de 1rem = 16px */
+    border-width: 0 0.063rem 0.063rem 0.063rem;
+    position: relative;
+}
+
+.fieldset-content {
+    padding: 0 0.75rem 0.75rem 0.75rem;
+}
+
+.fieldset .legend {
+    position: relative;
+    /* 0.063rem = 1px sur la base de 1rem = 16px */
+    left: -0.063rem;
+    right: -0.063rem;
+    width: 100%;
+    display: block;
+    /* 0.063rem * 2 = 0.126rem */
+    padding: 0 0 0 0.126rem;
+    font-weight: normal;
+    box-sizing: content-box;
+}
+
+.fieldset .legend:after {
+    /* 0.063rem = 1px sur la base de 1rem = 16px */
+    border-width: 0.063rem 0.063rem 0 0.063rem;
+    content: '';
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.fieldset .legend span {
+    display: inline-block;
+    position: relative;
+    z-index: 3;
+    padding: 0 0.125rem 0 0.125rem;
+    /* Voir le calcul sur le codepen */
+    margin: 0.5rem 0.85rem 0.5rem 0.85rem;
+}
+
+.fieldset .legend.center {
+    text-align: center;
+}
+
+.fieldset .legend.right {
+    text-align: right;
+}

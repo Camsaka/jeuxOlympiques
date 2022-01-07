@@ -5,17 +5,40 @@
 <head>
     <meta charset="utf-8">
     <!-- On va utiliser bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" src="frontStyle.css">
-    <title>TweetJS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" src="css/frontStyle.css">
+    <title>Jeux Olympiques</title>
 
 </head>
 
 <body>
-    <div name="conteneur" id="conteneur">
-        <button type="button" class="btn btn-primary" id="listAthletesButton">Lister les athlètes</button>
-        <button type="button" class="btn btn-primary" id="listSportsButton" onclick="listerSports()">Lister kes sports</button>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+
+<div name="conteneur" id="conteneur">
+
+    <!--div des formulaires d'ajout des sports et des athlètes-->
+    <div class="form-group">
+        <fieldset name="formS" id="formS">
+            <legend>Sport</legend>
+        </fieldset>
     </div>
+    <div class="form-group">
+        <fieldset name="formA" id="formA">
+            <legend>Athlete</legend>
+        </fieldset>
+    </div>
+
+    <!--Boutons pour lister les sports et les athlètes-->
+    <button type="button" class="btn btn-primary" id="listAthletesButton" onclick="listerAthletes()">Lister les athlètes</button>
+    <button type="button" class="btn btn-primary" id="listSportsButton" onclick="listerSports()">Lister les sports</button>
+
+    <!--div accueillant les listes des sports et des athltètes-->
+    <div name="listA" id="listA"></div>
+    <div name="listS" id="listS"></div>
+
+</div>
 </body>
 <script type="text/javascript" src="scriptFront.js"></script>
 </html>
