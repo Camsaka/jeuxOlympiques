@@ -1,6 +1,3 @@
-
-
-let conteneurPrincipal = document.getElementById("conteneur");
 let divS = document.getElementById("listS");
 let divA = document.getElementById("listA");
 
@@ -43,6 +40,7 @@ function initAthleteForm(){
     boutonAddAthlete.name = "btnA";
     boutonAddAthlete.textContent = "Ajouter un athlete";
     boutonAddAthlete.className = "btn btn-primary";
+    boutonAddAthlete.addEventListener("click",ajouterAthlete);
 
     let countryField = document.createElement("input");
     countryField.placeholder = "Entrer votre nationalité";
@@ -52,7 +50,7 @@ function initAthleteForm(){
 
     let labelCountryField = document.createElement("label");
     labelCountryField.htmlFor = "countryField";
-    labelCountryField.textContent = "Nationalité : ";
+    labelCountryField.textContent = "Nationalité";
 
     let firstNameField = document.createElement("input");
     firstNameField.placeholder = "Entrer votre prénom";
@@ -61,7 +59,7 @@ function initAthleteForm(){
     firstNameField.id = "firstNameField";
     let labelFirstNameField = document.createElement("label");
     labelFirstNameField.htmlFor = "firstNameField";
-    labelFirstNameField.textContent = "Prénom : ";
+    labelFirstNameField.textContent = "Prénom";
 
     let lastNameField = document.createElement("input");
     lastNameField.placeholder = "Entrer votre nom";
@@ -70,7 +68,7 @@ function initAthleteForm(){
     lastNameField.id = "lastNameField";
     let labelLastNameField = document.createElement("label");
     labelLastNameField.htmlFor = "lastNameField";
-    labelLastNameField.textContent = "Nom : ";
+    labelLastNameField.textContent = "Nom";
 
     //init champ genre
     let genderField = document.createElement("select");
@@ -79,7 +77,7 @@ function initAthleteForm(){
     genderField.className = "form-select";
     let labelGenderField = document.createElement("label");
     labelGenderField.htmlFor = "genderField";
-    labelGenderField.textContent = "Genre :  ";
+    labelGenderField.textContent = "Genre";
     let optionM = document.createElement("option");
     optionM.value = "M";
     optionM.textContent = "Homme";
@@ -98,6 +96,7 @@ function initAthleteForm(){
     FormA.appendChild(firstNameField);
     FormA.appendChild(labelGenderField);
     FormA.appendChild(genderField);
+    FormA.appendChild(boutonAddAthlete);
 
 }
 
@@ -140,18 +139,81 @@ async function listerAthletes(){
 
 
 async function ajouterSport(){
-    let nameValue = document.getElementById("nameField").value;
-    let obj = new Object();
+    let nameField = document.getElementById("nameField");
+    let nameValue = nameField.value;
+    if(nameValue != "") {
+        nameField.style.backgroundColor = "green";
+        let obj = new Object();
         obj.name = nameValue;
-    let jsonString = JSON.stringify(obj);
-    console.log(obj);
-    const response = await fetch('http://localhost:3001/api/sports', {
+        let jsonString = JSON.stringify(obj);
+        console.log(obj);
+        const response = await fetch('http://localhost:3001/api/sports', {
             method: "POST",
             headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: jsonString //ou string, FormData, Blob, BufferSource, ou URLSearchParams
-    });
-    const data = await response.json();
+            body: jsonString
+        });
+        const data = await response.json();
+    }
+    else{
+        nameField.style.backgroundColor = "red";
+    }
+}
+
+async function ajouterAthlete(){
+    let countryfield = document.getElementById("countryField");
+    let lastNamefield = document.getElementById("lastNameField");
+    let firstNamefield = document.getElementById("firstNameField");
+    let genderfield = document.getElementById("genderField");
+
+    let countryValue = countryfield.value;
+    let lastNameValue = lastNamefield.value;
+    let firstNameValue = firstNamefield.value;
+    let genderValue =genderfield. value;
+
+    if(countryValue != "" && lastNameValue != "" && firstNameValue != "" && genderValue != ""){
+
+        countryfield.style.backgroundColor = "green";
+        lastNamefield.style.backgroundColor = "green";
+        firstNamefield.style.backgroundColor = "green";
+        genderfield.style.backgroundColor = "green";
+
+        let obj = new Object();
+        obj.firstName = firstNameValue;
+        obj.lastName = lastNameValue;
+        obj.gender = genderValue;
+        obj.country = countryValue;
+
+        let jsonString = JSON.stringify(obj);
+
+        console.log(obj);
+        const response = await fetch('http://localhost:3001/api/athletes', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: jsonString
+        });
+        const data = await response.json();
+    }
+    else{
+        if( countryValue == ""){
+            countryfield.style.backgroundColor = "red";
+        }
+
+        if( lastNameValue == ""){
+            lastNamefield.style.backgroundColor = "red";
+        }
+
+        if( firstNameValue == ""){
+            firstNamefield.style.backgroundColor = "red";
+        }
+
+        if( genderValue == ""){
+            genderfield.style.backgroundColor = "red";
+        }
+    }
 }
