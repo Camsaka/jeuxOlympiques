@@ -3,6 +3,8 @@ let divA = document.getElementById("listA");
 
 let FormS = document.getElementById("formS");
 let FormA = document.getElementById("formA");
+let AtoS = document.getElementById("AtoS");
+let SofA = document.getElementById("SofA");
 
 window.onload = init;
 
@@ -100,10 +102,11 @@ function initAthleteForm(){
 
 }
 
-function init(){
+async function init(){
     console.log("initialisation de la page");
     initSportForm();
     initAthleteForm();
+    initAthleteToSport();
 
 }
 
@@ -173,8 +176,11 @@ async function ajouterAthlete(){
     let firstNameValue = firstNamefield.value;
     let genderValue =genderfield. value;
 
+    let popup = document.getElementById("popup");
+
     if(countryValue != "" && lastNameValue != "" && firstNameValue != "" && genderValue != ""){
 
+        popup.remove();
         countryfield.style.backgroundColor = "green";
         lastNamefield.style.backgroundColor = "green";
         firstNamefield.style.backgroundColor = "green";
@@ -200,20 +206,65 @@ async function ajouterAthlete(){
         const data = await response.json();
     }
     else{
-        if( countryValue == ""){
-            countryfield.style.backgroundColor = "red";
-        }
 
-        if( lastNameValue == ""){
-            lastNamefield.style.backgroundColor = "red";
-        }
-
-        if( firstNameValue == ""){
-            firstNamefield.style.backgroundColor = "red";
-        }
-
-        if( genderValue == ""){
-            genderfield.style.backgroundColor = "red";
-        }
+        popup.textContent = "Tous les champs sont obligatoires";
+        popup.style.color = "red";
+        popup.replaceWith(popup);
     }
 }
+async function initAthleteToSport(){
+
+    //Recuperation des sports
+    let listeSports = document.createElement("ul");
+    const responseS = await fetch('http://localhost:3001/api/sports');
+    const dataS = await responseS.json();
+    console.log(dataS);
+
+    //Recuperation des athletes
+    let listeAthletes = document.createElement("ul");
+    const responseA = await fetch('http://localhost:3001/api/athletes');
+    const dataA = await responseA.json();
+    console.log(dataA);
+
+    //Creation liste sports
+    let sportsList = document.createElement("select");
+    sportsList.name = "sportsList";
+    sportsList.id = "sportsList";
+    let labelSportsList = document.createElement("label");
+    labelSportsList.htmlFor = "sportsList";
+    labelSportsList.textContent = "Liste des sports";
+    sportsList.className = "form-select";
+
+    //Creation liste des athletes
+    let athletesList = document.createElement("select");
+    athletesList.name = "athletesList";
+    athletesList.id = "athletesList";
+    let labelAthletesList = document.createElement("label");
+    labelAthletesList.htmlFor = "athletesList";
+    labelAthletesList.textContent = "Liste des athletes";
+    athletesList.className = "form-select";
+
+    //Creation liste sports
+    for (let elt of dataS.sports){
+        console.log(elt.name);
+        let option = document.createElement("option");
+        option.value = elt.name;
+        option.textContent = elt.name;
+        sportsList.add(option);
+    }
+    //Creation liste athletes
+    for (let elt of dataA.athletes){
+        console.log(elt.lastName + " " + elt.firstName+ " " + elt._id);
+        let option = document.createElement("option");
+        option.value = elt._id;
+        option.textContent = elt.lastName + " " + elt.firstName;
+        athletesList.add(option);
+
+    }
+    AtoS.appendChild(sportsList);
+    SofA.appendChild(athletesList);
+
+
+
+}
+
