@@ -56,8 +56,7 @@ class AthleteController {
         }
 
         res.json({
-            sportList : sportList,
-            sports : sports
+            sportList : sportList
         });
     }
 

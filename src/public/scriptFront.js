@@ -5,6 +5,7 @@ let FormS = document.getElementById("formS");
 let FormA = document.getElementById("formA");
 let AtoS = document.getElementById("AtoS");
 let SofA = document.getElementById("SofA");
+let SofAResult = document.getElementById("SofAResult");
 
 window.onload = init;
 
@@ -103,10 +104,11 @@ function initAthleteForm(){
 }
 
 async function init(){
-    console.log("initialisation de la page");
+    // console.log("initialisation de la page");
     initSportForm();
     initAthleteForm();
     initAthleteToSport();
+    initListSportOfAthletes();
 
 }
 
@@ -115,12 +117,12 @@ async function listerSports(){
     let listeSports = document.createElement("ul");
     const response = await fetch('http://localhost:3001/api/sports');
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     for (let elt of data.sports){
         let point = document.createElement("li");
         point.textContent = elt.name;
         listeSports.appendChild(point);
-        console.log(elt.name);
+        // console.log(elt.name);
     }
     divS.replaceWith(listeSports);
 
@@ -130,12 +132,12 @@ async function listerAthletes(){
     let listeAthletes = document.createElement("ul");
     const response = await fetch('http://localhost:3001/api/athletes');
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     for (let elt of data.athletes){
         let point = document.createElement("li");
         point.textContent = elt.firstName + " " + elt.lastName;
         listeAthletes.appendChild(point);
-        console.log(elt.name);
+        // console.log(elt.name);
     }
     divA.replaceWith(listeAthletes);
 }
@@ -149,7 +151,7 @@ async function ajouterSport(){
         let obj = new Object();
         obj.name = nameValue;
         let jsonString = JSON.stringify(obj);
-        console.log(obj);
+        // console.log(obj);
         const response = await fetch('http://localhost:3001/api/sports', {
             method: "POST",
             headers: {
@@ -174,7 +176,7 @@ async function ajouterAthlete(){
     let countryValue = countryfield.value;
     let lastNameValue = lastNamefield.value;
     let firstNameValue = firstNamefield.value;
-    let genderValue =genderfield. value;
+    let genderValue =genderfield.value;
 
     let popup = document.getElementById("popup");
 
@@ -194,7 +196,7 @@ async function ajouterAthlete(){
 
         let jsonString = JSON.stringify(obj);
 
-        console.log(obj);
+        // console.log(obj);
         const response = await fetch('http://localhost:3001/api/athletes', {
             method: "POST",
             headers: {
@@ -218,13 +220,13 @@ async function initAthleteToSport(){
     let listeSports = document.createElement("ul");
     const responseS = await fetch('http://localhost:3001/api/sports');
     const dataS = await responseS.json();
-    console.log(dataS);
+    // console.log(dataS);
 
     //Recuperation des athletes
     let listeAthletes = document.createElement("ul");
     const responseA = await fetch('http://localhost:3001/api/athletes');
     const dataA = await responseA.json();
-    console.log(dataA);
+    // console.log(dataA);
 
     //Creation liste sports
     let sportsList = document.createElement("select");
@@ -239,32 +241,97 @@ async function initAthleteToSport(){
     let athletesList = document.createElement("select");
     athletesList.name = "athletesList";
     athletesList.id = "athletesList";
-    let labelAthletesList = document.createElement("label");
-    labelAthletesList.htmlFor = "athletesList";
-    labelAthletesList.textContent = "Liste des athletes";
-    athletesList.className = "form-select";
 
     //Creation liste sports
     for (let elt of dataS.sports){
-        console.log(elt.name);
+        // console.log(elt.name);
         let option = document.createElement("option");
-        option.value = elt.name;
+        option.value = elt._id;
         option.textContent = elt.name;
         sportsList.add(option);
     }
     //Creation liste athletes
     for (let elt of dataA.athletes){
-        console.log(elt.lastName + " " + elt.firstName+ " " + elt._id);
+        // console.log(elt.lastName + " " + elt.firstName+ " " + elt._id);
         let option = document.createElement("option");
         option.value = elt._id;
         option.textContent = elt.lastName + " " + elt.firstName;
         athletesList.add(option);
-
     }
+
+    let boutonAddSportToAthlete =  document.createElement("button");
+    boutonAddSportToAthlete.id = "btnAtoS";
+    boutonAddSportToAthlete.name = "btnAtoS";
+    boutonAddSportToAthlete.textContent = "Ajouter l'athlete au sport";
+    boutonAddSportToAthlete.className = "btn btn-primary";
+    boutonAddSportToAthlete.addEventListener("click",ajouterAthleteToSport);
+
+    AtoS.appendChild(athletesList);
     AtoS.appendChild(sportsList);
-    SofA.appendChild(athletesList);
+    AtoS.appendChild(boutonAddSportToAthlete);
+}
 
+async function ajouterAthleteToSport(){
+    let idAthlete = document.getElementById("athletesList").value;
+    let idSport = document.getElementById("sportsList").value;
+    const response = await fetch('http://localhost:3001/api/sports/'+ idSport + '/athletes/'+ idAthlete , {
+        method: "PUT"
+    });
+    const data = await response.json();
 
+}
+
+async function initListSportOfAthletes(){
+
+    //Recuperation des athletes
+    const responseA = await fetch('http://localhost:3001/api/athletes');
+    const dataA = await responseA.json();
+    // console.log(dataA);
+
+    let boutonListSportofAthlete =  document.createElement("button");
+    boutonListSportofAthlete.id = "btnSofA";
+    boutonListSportofAthlete.name = "btnSofA";
+    boutonListSportofAthlete.textContent = "Lister les sport de cet athlete";
+    boutonListSportofAthlete.className = "btn btn-primary";
+    boutonListSportofAthlete.addEventListener("click",listerSportsAthlete);
+
+    //Creation liste des athletes
+    let athletesListe = document.createElement("select");
+    athletesListe.name = "athletesListe";
+    athletesListe.id = "athletesListe";
+    let labelAthletesListe = document.createElement("label");
+    labelAthletesListe.htmlFor = "athletesListe";
+    labelAthletesListe.textContent = "Liste des athletes";
+    labelAthletesListe.className = "form-select";
+
+    //Creation liste athletes
+    for (let elt of dataA.athletes){
+        let option = document.createElement("option");
+        option.value = elt._id;
+        console.log(option.value);
+        option.textContent = elt.lastName + " " + elt.firstName;
+        athletesListe.add(option);
+    }
+    SofA.appendChild(athletesListe);
+    SofA.appendChild(boutonListSportofAthlete);
+    console.log("fin initListAthleteSport");
+}
+
+async function listerSportsAthlete() {
+    let athlete = document.getElementById('athletesListe');
+    let listeSports = document.createElement("ul");
+    let idAthlete = athlete.value;
+    console.log(idAthlete);
+    const response = await fetch('http://localhost:3001/api/athletes/'+idAthlete+'/sports');
+    const data = await response.json();
+    // console.log(data.sportList);
+     for (let elt of data.sportList){
+         console.log(elt);
+         let point = document.createElement("li");
+         point.textContent = elt;
+         listeSports.appendChild(point);
+    }
+    SofAResult.replaceWith(listeSports);
 
 }
 
