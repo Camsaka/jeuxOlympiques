@@ -15,13 +15,13 @@ La page web s'affiche avec les fonctionnalités disponible.
 
 Notes :
 
-Des optimisations sont encore à apporter ua projet mais voici quelques recommandations afin d'y palier pour l'instant :
+Des optimisations sont encore à apporter au projet mais voici quelques recommandations afin d'y palier pour l'instant :
     
 A chaque modification (ajout d'athlète ou de sport, sport à athlète...etc) un chargement de la page sera
     nécessaire pour pouvoir les lister.
     
 Le traitement des données "doublons" n'est pas pris en charge dans cette version du projet, en conséquence
-    les actions d'ajouts peuvent etre rejouées à multiple reprise (ex: ajouter l'athlete christiano ronaldo 10x en dans la bdd "athlete")
+    les actions d'ajouts peuvent etre rejouées à multiple reprise (ex: ajouter l'athlete christiano ronaldo 10x dans la bdd "athlete").
 
 Checklist API :
 
