@@ -21,6 +21,9 @@ A chaque modification (ajout d'athlète ou de sport, sport à athlète...etc) un
     
 Gestion des doublons pour l'ajout d'un athlète à un sport (il ne peut être ajouté deux fois au même sport)
 
+Le rendu s'appuie sur un script js présent dans public/
+
+
 Checklist API :
 
 ![img_2.png](img_2.png)
