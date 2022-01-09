@@ -19,8 +19,7 @@ Des optimisations sont encore à apporter au projet mais voici quelques recomman
     
 A chaque modification (ajout d'athlète ou de sport, sport à athlète...etc) un chargement de la page sera nécessaire pour pouvoir les lister.
     
-Le traitement des données "doublons" n'est pas pris en charge dans cette version du projet, en conséquence
-    les actions d'ajouts peuvent etre rejouées à multiple reprise (ex: ajouter l'athlete christiano ronaldo 10x dans la bdd "athlete").
+Gestion des doublons pour l'ajout d'un athlète à un sport (il ne peut être ajouté deux fois au même sport)
 
 Checklist API :
 
