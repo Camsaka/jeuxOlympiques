@@ -59,9 +59,16 @@ class SportController {
         const idAthlete = req.params.idAthlete;
         const athlete = await Athlete.findById(idAthlete);
         const sports = await Sport.findById(idSport);
-        sports.athletes.push(athlete.id);
-        await sports.save();
-        res.json(sports);
+        if (sports.athletes.includes(athlete.id)) 
+        {
+            res.json('Athlète existant au sport')
+        }
+        else
+        {
+            sports.athletes.push(athlete.id);
+            await sports.save();
+            res.json(sports);
+        }
     }
 
 }
