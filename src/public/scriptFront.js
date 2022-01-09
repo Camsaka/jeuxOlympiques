@@ -1,6 +1,7 @@
 let divS = document.getElementById("listS");
 let divA = document.getElementById("listA");
 
+
 let FormS = document.getElementById("formS");
 let FormA = document.getElementById("formA");
 let AtoS = document.getElementById("AtoS");
@@ -31,6 +32,7 @@ function initSportForm(){
 
     FormS.appendChild(labelNameField);
     FormS.appendChild(nameField);
+    FormS.appendChild(document.createElement("br"));
     FormS.appendChild(boutonAddSport);
 
 
@@ -99,6 +101,7 @@ function initAthleteForm(){
     FormA.appendChild(firstNameField);
     FormA.appendChild(labelGenderField);
     FormA.appendChild(genderField);
+    FormA.appendChild(document.createElement("br"));
     FormA.appendChild(boutonAddAthlete);
 
 }
@@ -160,7 +163,11 @@ async function ajouterSport(){
             },
             body: jsonString
         });
-        const data = await response.json();
+        const data = await response.json()
+        let confirmation = document.createElement("p");
+        confirmation.textContent = "Sport ajouté";
+        confirmation.color = "green";
+        FormS.appendChild(confirmation);
     }
     else{
         nameField.style.backgroundColor = "red";
@@ -206,6 +213,10 @@ async function ajouterAthlete(){
             body: jsonString
         });
         const data = await response.json();
+        let confirmation = document.createElement("p");
+        confirmation.textContent = "Athlete ajouté";
+        confirmation.color = "green";
+        FormA.appendChild(confirmation);
     }
     else{
 
@@ -268,16 +279,24 @@ async function initAthleteToSport(){
 
     AtoS.appendChild(athletesList);
     AtoS.appendChild(sportsList);
+    AtoS.appendChild(document.createElement("br"));
+    AtoS.appendChild(document.createElement("br"));
     AtoS.appendChild(boutonAddSportToAthlete);
 }
 
 async function ajouterAthleteToSport(){
-    let idAthlete = document.getElementById("athletesList").value;
-    let idSport = document.getElementById("sportsList").value;
+    let athlete = document.getElementById("athletesList");
+    let sport = document.getElementById("sportsList");
+    let idAthlete = athlete.value;
+    let idSport = sport.value;
     const response = await fetch('http://localhost:3001/api/sports/'+ idSport + '/athletes/'+ idAthlete , {
         method: "PUT"
     });
     const data = await response.json();
+    let confirmation = document.createElement("p");
+    confirmation.textContent = "Athlete ajouté au sport";
+    confirmation.color = "green";
+    AtoS.appendChild(confirmation);
 
 }
 
@@ -313,6 +332,8 @@ async function initListSportOfAthletes(){
         athletesListe.add(option);
     }
     SofA.appendChild(athletesListe);
+    SofA.appendChild(document.createElement("br"));
+    SofA.appendChild(document.createElement("br"));
     SofA.appendChild(boutonListSportofAthlete);
     console.log("fin initListAthleteSport");
 }
