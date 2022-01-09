@@ -297,10 +297,20 @@ async function ajouterAthleteToSport(){
         method: "PUT"
     });
     const data = await response.json();
-    let confirmation = document.createElement("p");
-    confirmation.textContent = "Athlete ajouté au sport";
-    confirmation.color = "green";
-    AtoS.appendChild(confirmation);
+    if ( data != 'Athlète existant au sport')
+    {
+        let confirmation = document.createElement("p");
+        confirmation.textContent = "Athlete ajouté au sport";
+        confirmation.color = "green";
+        AtoS.appendChild(confirmation);   
+    }
+    else 
+    {
+        let confirmation = document.createElement("p");
+        confirmation.textContent = "Athlète déjà inclus dans ce sport";
+        confirmation.color = "green";
+        AtoS.appendChild(confirmation);
+    }
 
 }
 
