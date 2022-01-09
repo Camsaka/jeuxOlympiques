@@ -8,6 +8,9 @@ let AtoS = document.getElementById("AtoS");
 let SofA = document.getElementById("SofA");
 let SofAResult = document.getElementById("SofAResult");
 
+let AofS = document.getElementById("AofS");
+let AofSResult = document.getElementById("AofSResult");
+
 window.onload = init;
 
 
@@ -112,6 +115,7 @@ async function init(){
     initAthleteForm();
     initAthleteToSport();
     initListSportOfAthletes();
+    initListAthleteOfSport();
 
 }
 
@@ -356,3 +360,58 @@ async function listerSportsAthlete() {
 
 }
 
+async function initListAthleteOfSport(){
+
+    //Recuperation des athletes
+    const responseA = await fetch('http://localhost:3001/api/sports');
+    const dataA = await responseA.json();
+    // console.log(dataA);
+
+    let boutonListAthleteofSport =  document.createElement("button");
+    boutonListAthleteofSport.id = "btnAofS";
+    boutonListAthleteofSport.name = "btnAofS";
+    boutonListAthleteofSport.textContent = "Lister les athlètes de ce sport";
+    boutonListAthleteofSport.className = "btn btn-primary";
+    boutonListAthleteofSport.addEventListener("click",listerAthleteSport);
+
+    //Creation liste des athletes
+    let sportsListe = document.createElement("select");
+    sportsListe.name = "sportsListe";
+    sportsListe.id = "sportsListe";
+    let labelSportsListe = document.createElement("label");
+    labelSportsListe.htmlFor = "sportsListe";
+    labelSportsListe.textContent = "Liste des sports";
+    labelSportsListe.className = "form-select";
+
+    //Creation liste athletes
+    for (let elt of dataA.sports){
+        let option = document.createElement("option");
+        option.value = elt._id;
+        console.log(option.value);
+        option.textContent = elt.name;
+        sportsListe.add(option);
+    }
+    AofS.appendChild(sportsListe);
+    AofS.appendChild(document.createElement("br"));
+    AofS.appendChild(document.createElement("br"));
+    AofS.appendChild(boutonListAthleteofSport);
+    console.log("boutonListAthleteofSport");
+}
+
+async function listerAthleteSport() {
+    let sport = document.getElementById('sportsListe');
+    let listeAthletes = document.createElement("ul");
+    let idSport = sport.value;
+    console.log(idSport);
+    const response = await fetch('http://localhost:3001/api/sports/'+idSport+'/athletes');
+    const data = await response.json();
+    console.log(data.athleteslist);
+    data.athleteslist.forEach(elt => {
+        console.log(elt);
+        let point = document.createElement("li");
+        point.textContent = elt;
+        listeAthletes.appendChild(point);
+    });
+    AofSResult.replaceWith(listeAthletes);
+
+}
